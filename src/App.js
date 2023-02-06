@@ -32,17 +32,19 @@ function App() {
   ]);
 
   function handleRefresh() {
-    setTimeout(() => {
-      setPosts((prevState) => [
-        ...prevState,
-        {
-          id: Math.random(),
-          title: `Title#0${prevState.length + 1}`,
-          subtitle: `Sub#0${prevState.length + 1}`,
-          likes: 50,
-        },
-      ]);
-    }, 2000);
+    setPosts((prevState) => [
+      ...prevState,
+      {
+        id: Math.random(),
+        title: `Title#0${prevState.length + 1}`,
+        subtitle: `Sub#0${prevState.length + 1}`,
+        likes: 50,
+      },
+    ]);
+  }
+
+  function handleRemovePost(postId) {
+    setPosts((prevState) => prevState.filter((post) => post.id !== postId));
   }
 
   return (
@@ -60,7 +62,9 @@ function App() {
         <Post
           key={post.title}
           likes={post.likes}
+          onRemove={handleRemovePost}
           post={{
+            id: post.id,
             title: post.title,
             subtitle: post.subtitle,
           }}
