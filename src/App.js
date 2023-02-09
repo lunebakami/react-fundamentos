@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import Post from './Post';
 import Header from './Header';
 
-function App() {
-  const [theme, setTheme] = useState('dark');
+import { ThemeProvider } from './ThemeContext';
 
+function App() {
   const [posts, setPosts] = useState([
     {
       id: Math.random(),
@@ -37,10 +37,6 @@ function App() {
     },
   ]);
 
-  function handleToggleTheme() {
-    setTheme((prevState) => (prevState === 'dark' ? 'light' : 'dark'));
-  }
-
   function handleRefresh() {
     setPosts((prevState) => [
       ...prevState,
@@ -58,8 +54,8 @@ function App() {
   }
 
   return (
-    <>
-      <Header theme={theme} onToggleTheme={handleToggleTheme}>
+    <ThemeProvider>
+      <Header>
         <h2>
           Posts da semana
           <button onClick={handleRefresh}>Atualizar</button>
@@ -69,14 +65,9 @@ function App() {
       <hr />
 
       {posts.map((post) => (
-        <Post
-          theme={theme}
-          key={post.title}
-          onRemove={handleRemovePost}
-          post={post}
-        />
+        <Post key={post.title} onRemove={handleRemovePost} post={post} />
       ))}
-    </>
+    </ThemeProvider>
   );
 }
 
