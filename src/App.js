@@ -7,21 +7,15 @@ import Layout from './components/Layout';
 import themes from './styles/themes';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    theme: JSON.parse(localStorage.getItem('theme')) || 'dark',
+  };
 
-    this.state = {
-      theme: JSON.parse(localStorage.getItem('theme')) || 'dark',
-    };
-
-    this.handleToggleTheme = this.handleToggleTheme.bind(this);
-  }
-
-  handleToggleTheme() {
+  handleToggleTheme = () => {
     this.setState((prevState) => ({
       theme: prevState.theme === 'dark' ? 'light' : 'dark',
     }));
-  }
+  };
 
   render() {
     const { theme } = this.state;
