@@ -5,16 +5,20 @@ export default class Post extends Component {
         super(props);
 
         const { search } = this.props.location;
-        this.queryParams = new URLSearchParams(search);
+        // this.queryParams = new URLSearchParams(search);
+    }
+
+    handleNavigate = () => {
+        this.props.history.push('/posts');
     }
 
     render() {
-        console.log(this.queryParams.get('meuQueryParam'));
-
         return (
-          <h1>
-              Post Page
-          </h1>
+          <>
+              <button onClick={this.handleNavigate}>Voltar para lista de posts</button>
+              <h1>Post Page</h1>
+          </>
+
         );
     }
 }
